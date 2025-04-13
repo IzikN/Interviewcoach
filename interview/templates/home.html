@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Interview Coach</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h1 class="display-5 fw-bold text-primary">AI Interview Coach</h1>
+      <p class="lead text-muted">Practice and get feedback instantly.</p>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+      <form method="POST" action="{% url 'interview:start_interview' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="roleSelect" class="form-label">Choose a predefined role</label>
+          <select name="role_id" id="roleSelect" class="form-select">
+            <option value="">-- Select a Role --</option>
+            {% for role in roles %}
+              <option value="{{ role.id }}">{{ role.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="customRole" class="form-label">Or enter a custom role</label>
+          <input type="text" name="custom_role" id="customRole" class="form-control" placeholder="e.g., Data Analyst">
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg">Start Interview</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
